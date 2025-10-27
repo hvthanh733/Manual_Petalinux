@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hướng dẫn mkdir & cd</title>
+<style>
+  :root{
+    --bg:#0f172a;        /* slate-900 */
+    --panel:#111827;     /* gray-900 */
+    --text:#e5e7eb;      /* gray-200 */
+    --muted:#9ca3af;     /* gray-400 */
+    --accent:#22d3ee;    /* cyan-400 */
+    --accent-2:#60a5fa;  /* blue-400 */
+    --code:#0b1020;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+    background: radial-gradient(1200px 600px at 20% -10%, #132045 0%, transparent 60%), var(--bg);
+    color:var(--text); line-height:1.55; padding:40px 16px;
+  }
+  .container{max-width:760px;margin:0 auto}
+  h1{font-size:clamp(22px,3vw,30px);margin:0 0 18px}
+  p.lead{color:var(--muted);margin:0 0 28px}
+  .step{
+    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);
+    padding:18px; margin:16px 0; position:relative; overflow:hidden;
+  }
+  .badge{
+    position:absolute; top:12px; right:12px;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    color:#06121a; padding:4px 10px; border-radius:999px; font-weight:700; font-size:12px;
+    box-shadow:0 6px 24px rgba(0,0,0,.25);
+  }
+  .title{display:flex; align-items:center; gap:10px; margin-bottom:10px}
+  .num{
+    width:28px; height:28px; border-radius:8px; display:grid; place-items:center; 
+    background:rgba(96,165,250,.18); color:#cfe3ff; font-weight:700;
+    border:1px solid rgba(96,165,250,.4);
+  }
+  .title h2{font-size:18px; margin:0}
+  .explain{color:var(--muted); margin:6px 0 12px}
+  .code{
+    background:var(--code); border:1px solid rgba(148,163,184,.18);
+    border-radius:10px; padding:12px 12px; display:flex; align-items:center; gap:10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-size:14px; overflow:auto;
+  }
+  .code kbd{color:#e2e8f0}
+  .copy{
+    margin-left:auto; border:1px solid rgba(148,163,184,.25); background:#0a1224; color:#cfe3ff;
+    padding:6px 10px; border-radius:8px; cursor:pointer; font-weight:600;
+    transition:transform .05s ease, border-color .2s ease, background .2s ease;
+  }
+  .copy:hover{border-color:rgba(96,165,250,.6)}
+  .copy:active{transform:translateY(1px)}
+  .hint{font-size:12px; color:var(--muted); margin-top:8px}
+  footer{color:#8aa0b6; margin-top:26px; font-size:13px}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Hai lệnh cơ bản: <code>mkdir</code> & <code>cd</code></h1>
+    <p class="lead">
+        <p>Trong Manual nay se huong dan steps by steps nham su dung Petalinux Tools cai dat Linux len FPGA SoC Kria KD240.
+            Trong moi steps se co giai thich ngan gon ve lenh duoc su dung</p>
+        </p>
+    <!-- Step 1: Thay doi shell -->
+    <section class="step" aria-labelledby="s1">
+      <span class="badge">Bước 1</span>
+      <div class="title"><div class="num">1</div><h2 id="s1">Thay doi shell</h2></div>
+      <p class="explain">
+        <b>sudo dpkg-reconfigure dash</b>: dash mac dinh dung Ubuntu, con bash dung trong Petalinhx, Yocto, Mmake<code></code>.
+      </p>
+      <p class="explain">
+        No se hien <b>Install dash as /bin/sh? Yes or No</b>: Chon No de su dung bash nham giup Petalinux chay it loi hon <code></code>.
+      </p>
+      <div class="code">
+        <kbd id="cmd1">sudo dpkg-reconfigure dash</kbd>
+        <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+      </div>
+    </section>
+
+    <!-- Step 2: Download Petalinux Tools -->
+    <section class="step" aria-labelledby="s2">
+      <span class="badge">Bước 2</span>
+      <div class="title"><div class="num">2</div><h2 id="s2">Download Petalinux Tools</h2></div>
+      <p class="explain">
+        <a href="https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-design-tools.html"><b>Petalinux Tools</b></a> 
+        chon nam va chon tai Petalinux Tools. File tai ve se co dang <b>petalinux-v2023.2-10121855-installer.run</b>
+      </p>
+      <img src="./img/petalinuxtool.png" alt="" style="width: 100%;">
+      <p class="hint"><b>Note:</b> Lua chon ban Peatalinux Tools cung can danh gia theo ban Vivado, cung nhu he dieu hanh Ubuntu.</p>
+    </section>
+
+    <!-- Step 3: Download Petalinux Tools -->
+    <section class="step" aria-labelledby="s3">
+      <span class="badge">Bước 4</span>
+      <div class="title"><div class="num">3</div><h2 id="s3">Tao folder & Giai nen</h2></div>
+      <p class="explain">
+        Tao folder AMD_KD240 va dua file <b>petalinux-v2023.2-10121855-installer.run trong Buoc 2</b> vao folder AMD_KD240.
+      </p>
+        <div class="code">
+        <kbd id="cmd1">
+            <kbd># Tao folder AMD_KD240</kbd><br>
+            <kbd>mkdir ~/AMD_KD240</kbd><br>
+            <kbd>cd ~/AMD_KD240</kbd>
+            <br><br>
+            <kbd># Dua file Petalinux Tools vao folder AMD_KD240</kbd><br>
+            <kbd>mv ~/Downloads/petalinux-v2023.2-10121855-installer.run /AMD_KD240/</kbd>
+            <br><br>
+            <kbd># Giai nen petalinux-v2023.2-10121855-installer.run vao folder petalinux_tools</kbd><br>
+            <kbd># petalinux_tools se la file chay moi truong cho Petalinux Tools</kbd><br>
+            <kbd>./petalinux-v2023.2-10121855-installer.run --extract petalinux_tools</kbd><br>
+            <img src="./img/petalinux_tools.png" alt="" style="width: 100%;">
+            <kbd># Chay moi truong Petalinux Tools </kbd><br>
+            <kbd>source ./settings.sh</kbd><br>
+
+        </kbd>
+        <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+      </div>
+      <p class="hint"><b>Note:</b> Trong suot qua trinh ve sau cua build project su dung Petalinux Tools deu 
+        phai duoc chay trong terminal chua moi truong Petalinux Tools da duoc kich hoat bang lenh <code>source ./settings.sh</code>.
+      </p>
+    </section>
+
+    <!-- Step 4: -->
+    <section class="step" aria-labelledby="s4">
+      <span class="badge">Bước 4</span>
+      <div class="title"><div class="num">4</div><h2 id="s4">Tao folder project</h2></div>
+      <p class="explain">
+        Dung lenh <b>cd</b> de quay tro lai folder AMD_KD240 neu ban dang o trong folder petalinux_tools.
+        Tao folder AMD_KD240 va dua file <b>petalinux-v2023.2-10121855-installer.run trong Buoc 2</b> vao folder AMD_KD240.
+      </p>
+        <div class="code">
+        <kbd id="cmd1">
+            <kbd># cd ra khoi petalinux_tools</kbd><br>
+            <kbd>cd ..</kbd>
+            <br><br>
+            <kbd># Tao folder projects trong folder me AMD_KD240</kbd><br>
+            <kbd># Trong day se chua cac folder du an</kbd><br>
+            <kbd>mkdir ~/projects</kbd><br>
+        </kbd>
+        <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+      </div>
+      <p class="hint">Lua chon ban Peatalinux Tools cung can danh gia theo ban Vivado, cung nhu he dieu hanh Ubuntu.</p>
+    </section>
+
+    <!-- Step 5: -->
+    <section class="step" aria-labelledby="s5">
+        <span class="badge">Bước 5</span>
+        <div class="title"><div class="num">5</div><h2 id="s5">Trich xuat Hardware (.xsa) file </h2></div>
+        <p class="explain">
+            Mo Vivado, sau khi chay xong bitstream, chon File -> Export -> Export Hardware
+            Gia su file duoc tao co ten la <b>design_1_wrapper.xsa</b>
+            <img src="./img/xsa.png" alt="" style="width: 100%;">
+        </p>
+        <p class="explain">Tim file .xsa do trong folder du an Vivado va copy vao trong folder /AMD_KD240/projects/</kbd><br></p>
+    </section>
+
+    <!-- Step 6: -->
+    <section class="step" aria-labelledby="s6">
+        <span class="badge">Bước 6</span>
+        <div class="title"><div class="num">6</div><h2 id="s5">Tao du an su dung .xsa</h2></div>
+        <p class="explain">
+            Su dung <b>petalinux-create -t project</b> nham tao du an su dung chip zynqMP
+            <br></br>
+            Trong do co zynqMP la vi KD240 su dung Zynq UltraScale+ MPSoC.
+        </p>
+        <div class="code">
+            <kbd id="cmd1">
+                <kbd># Chuyen den folder chua project</kbd><br>
+                <kbd>cd ~/AMD_KD240/projects</kbd>
+                <br><br>
+                <kbd># Tao du an Petalinux voi chip zynqMP</kbd><br>
+                <kbd>petalinux-create -t project -n kd240_xsa --template zynqMP</kbd><br>
+                <br><br>
+                <kbd># Vao trong du an kd240_xsa </kbd><br>
+                <kbd>cd kd240_xsa</kbd><br>
+                <br><br>
+                <kbd># Tao du an va chay config voi file .xsa</kbd><br>
+                <kbd>petalinux-config --get-hw-description=/AMD_KD240/projects/design_1_wrapper.xsa</kbd><br>
+            </kbd>
+            <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+        </div>
+        <p class="explain">
+            Neu chay thanh cong lenh tren se mo giao dien <b>petalinux-config</b>.
+            <br></br>
+            <img src="./img/petalinux_config.png" alt="" style="width: 100%;">
+            Chon <b>Save</b> xong <b> Exit</b> de luu cau hinh va thoat khoi giao dien.
+            Chi tiet con fig se duoc neu trong <a href="docs.google.com/spreadsheets/d/1IfkEAOo7d5a6vqPfAfH1OYiWCjqXqU7uqHM4-d78gY4/edit?gid=0#gid=0" style="color: #22d3ee;">Sheet</a>.
+        </p>
+    </section>
+
+
+    <footer>© Hướng dẫn nhanh – Linux basics</footer>
+  </div>
+
+<script>
+  // Copy to clipboard for both buttons
+  function copyText(id){
+    const el = document.getElementById(id);
+    const text = el ? el.textContent.trim() : "";
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(()=> flash(id));
+    } else {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      flash(id);
+    }
+  }
+  function flash(id){
+    const btn = document.querySelector('button[data-target="'+id+'"]');
+    if(!btn) return;
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(()=>{ btn.textContent = old; }, 900);
+  }
+  document.querySelectorAll('.copy').forEach(b=>{
+    b.addEventListener('click', ()=> copyText(b.dataset.target));
+  });
+</script>
+</body>
+</html>
