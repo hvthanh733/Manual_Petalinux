@@ -1,0 +1,85 @@
+  :root{
+    --bg:#0f172a;        /* slate-900 */
+    --panel:#111827;     /* gray-900 */
+    --text:#e5e7eb;      /* gray-200 */
+    --muted:#9ca3af;     /* gray-400 */
+    --accent:#22d3ee;    /* cyan-400 */
+    --accent-2:#60a5fa;  /* blue-400 */
+    --code:#0b1020;
+    --radius:14px;
+  }
+  .img-row{
+    display: flex;
+    gap: 12px;              /* khoảng cách giữa 2 ảnh */
+    align-items: center;    /* căn giữa theo trục dọc */
+    justify-content: center;
+    flex-wrap: nowrap;      /* luôn cùng 1 hàng; đổi thành wrap nếu muốn xuống dòng trên màn nhỏ */
+  }
+  .img-row img{
+    flex: 1 1 0;            /* chia đều chiều ngang */
+    max-width: 50%;
+    height: auto;           /* giữ tỉ lệ ảnh */
+    display: block;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+    background: radial-gradient(1200px 600px at 20% -10%, #132045 0%, transparent 60%), var(--bg);
+    color:var(--text); line-height:1.55; padding:40px 16px;
+  }
+  .container{max-width:760px;margin:0 auto}
+  h1{font-size:clamp(22px,3vw,30px);margin:0 0 18px}
+  p.lead{color:var(--muted);margin:0 0 28px}
+  .step{
+    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);
+    padding:18px; margin:16px 0; position:relative; overflow:hidden;
+  }
+  .badge{
+    position:absolute; top:12px; right:12px;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    color:#06121a; padding:4px 10px; border-radius:999px; font-weight:700; font-size:12px;
+    box-shadow:0 6px 24px rgba(0,0,0,.25);
+  }
+  .title{display:flex; align-items:center; gap:10px; margin-bottom:10px}
+  .num{
+    width:28px; height:28px; border-radius:8px; display:grid; place-items:center; 
+    background:rgba(96,165,250,.18); color:#cfe3ff; font-weight:700;
+    border:1px solid rgba(96,165,250,.4);
+  }
+  .title h2{font-size:18px; margin:0}
+  .explain{color:var(--muted); margin:6px 0 12px}
+  .code{
+    background:var(--code); border:1px solid rgba(148,163,184,.18);
+    border-radius:10px; padding:5px 12px; display:flex; align-items:center; gap:10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-size:14px; overflow:auto;
+  }
+  .code kbd{color:#e2e8f0}
+  .copy{
+    margin-left:auto; border:1px solid rgba(148,163,184,.25); background:#0a1224; color:#cfe3ff;
+    padding:6px 10px; border-radius:8px; cursor:pointer; font-weight:600;
+    transition:transform .05s ease, border-color .2s ease, background .2s ease;
+  }
+  .copy:hover{border-color:rgba(96,165,250,.6)}
+  .copy:active{transform:translateY(1px)}
+  .hint{font-size:12px; color:var(--muted); margin-top:8px}
+  footer{color:#8aa0b6; margin-top:26px; font-size:13px}
+
+
+kbd {
+  white-space: pre-line;
+}
+
+.code{
+  position: relative;
+}
+.copy{
+  position: absolute;
+  right: 2%;
+  top: 5%;
+  /* transform: translateY(-50%); */
+}
+

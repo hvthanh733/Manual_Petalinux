@@ -1,80 +1,10 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Build Linux su dung Petalinux tool len Kria KD240</title>
-<style>
-  :root{
-    --bg:#0f172a;        /* slate-900 */
-    --panel:#111827;     /* gray-900 */
-    --text:#e5e7eb;      /* gray-200 */
-    --muted:#9ca3af;     /* gray-400 */
-    --accent:#22d3ee;    /* cyan-400 */
-    --accent-2:#60a5fa;  /* blue-400 */
-    --code:#0b1020;
-    --radius:14px;
-  }
-  .img-row{
-    display: flex;
-    gap: 12px;              /* khoảng cách giữa 2 ảnh */
-    align-items: center;    /* căn giữa theo trục dọc */
-    justify-content: center;
-    flex-wrap: nowrap;      /* luôn cùng 1 hàng; đổi thành wrap nếu muốn xuống dòng trên màn nhỏ */
-  }
-  .img-row img{
-    flex: 1 1 0;            /* chia đều chiều ngang */
-    max-width: 50%;
-    height: auto;           /* giữ tỉ lệ ảnh */
-    display: block;
-  }
-
-  *{box-sizing:border-box}
-  body{
-    margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",sans-serif;
-    background: radial-gradient(1200px 600px at 20% -10%, #132045 0%, transparent 60%), var(--bg);
-    color:var(--text); line-height:1.55; padding:40px 16px;
-  }
-  .container{max-width:760px;margin:0 auto}
-  h1{font-size:clamp(22px,3vw,30px);margin:0 0 18px}
-  p.lead{color:var(--muted);margin:0 0 28px}
-  .step{
-    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:var(--radius);
-    padding:18px; margin:16px 0; position:relative; overflow:hidden;
-  }
-  .badge{
-    position:absolute; top:12px; right:12px;
-    background:linear-gradient(135deg, var(--accent), var(--accent-2));
-    color:#06121a; padding:4px 10px; border-radius:999px; font-weight:700; font-size:12px;
-    box-shadow:0 6px 24px rgba(0,0,0,.25);
-  }
-  .title{display:flex; align-items:center; gap:10px; margin-bottom:10px}
-  .num{
-    width:28px; height:28px; border-radius:8px; display:grid; place-items:center; 
-    background:rgba(96,165,250,.18); color:#cfe3ff; font-weight:700;
-    border:1px solid rgba(96,165,250,.4);
-  }
-  .title h2{font-size:18px; margin:0}
-  .explain{color:var(--muted); margin:6px 0 12px}
-  .code{
-    background:var(--code); border:1px solid rgba(148,163,184,.18);
-    border-radius:10px; padding:12px 12px; display:flex; align-items:center; gap:10px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-    font-size:14px; overflow:auto;
-  }
-  .code kbd{color:#e2e8f0}
-  .copy{
-    margin-left:auto; border:1px solid rgba(148,163,184,.25); background:#0a1224; color:#cfe3ff;
-    padding:6px 10px; border-radius:8px; cursor:pointer; font-weight:600;
-    transition:transform .05s ease, border-color .2s ease, background .2s ease;
-  }
-  .copy:hover{border-color:rgba(96,165,250,.6)}
-  .copy:active{transform:translateY(1px)}
-  .hint{font-size:12px; color:var(--muted); margin-top:8px}
-  footer{color:#8aa0b6; margin-top:26px; font-size:13px}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Build Linux su dung Petalinux tool len Kria KD240</title>
+  <link rel="stylesheet" href="./assets/index.css" />
 </head>
 <body>
   <div class="container">
@@ -108,7 +38,7 @@
         <a href="https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-design-tools.html"><b>Petalinux Tools</b></a> 
         chon nam va chon tai Petalinux Tools. File tai ve se co dang <b>petalinux-v2023.2-10121855-installer.run</b>
       </p>
-      <img src="./img/petalinuxtool.png" alt="" style="width: 100%;">
+      <img src="./assets/img/petalinuxtool.png" alt="" style="width: 100%;">
       <p class="hint"><b>Note:</b> Lua chon ban Peatalinux Tools cung can danh gia theo ban Vivado, cung nhu he dieu hanh Ubuntu.</p>
     </section>
 
@@ -121,25 +51,26 @@
       </p>
         <div class="code">
         <kbd id="cmd1">
-            <kbd># Tao folder AMD_KD240</kbd><br>
-            <kbd>mkdir ~/AMD_KD240</kbd><br>
-            <kbd>cd ~/AMD_KD240</kbd>
-            <br><br>
-            <kbd># Dua file Petalinux Tools vao folder AMD_KD240</kbd><br>
-            <kbd>mv ~/Downloads/petalinux-v2023.2-10121855-installer.run /AMD_KD240/</kbd>
-            <br><br>
-            <kbd># Giai nen petalinux-v2023.2-10121855-installer.run vao folder petalinux_tools</kbd><br>
-            <kbd># petalinux_tools se la file chay moi truong cho Petalinux Tools</kbd><br>
-            <kbd>./petalinux-v2023.2-10121855-installer.run --extract petalinux_tools</kbd><br>
-            <img src="./img/petalinux_tools.png" alt="" style="width: 100%;">
-            <kbd># Chay moi truong Petalinux Tools </kbd><br>
-            <kbd>source ./settings.sh</kbd><br>
-
+            <kbd># Tao folder AMD_KD240</kbd>
+            <kbd>mkdir AMD_KD240</kbd>
+            <kbd>cd ~/AMD_KD240</kbd></br>
+            <kbd># Dua file Petalinux Tools vao folder AMD_KD240</kbd>
+            <kbd>mv ~/Downloads/petalinux-v2023.2-10121855-installer.run /AMD_KD240/</kbd></br>
+            <kbd># Giai nen petalinux-v2023.2-10121855-installer.run vao folder petalinux_tools</kbd>
+            <kbd># petalinux_tools se la file chay moi truong cho Petalinux Tools</kbd>
+            <kbd>./petalinux-v2023.2-10121855-installer.run --dir petalinux_tools</kbd></br>
+            <kbd># Nhap Enter de xem license agreements</kbd>
+            <kbd># Nhap y de dong y roi q de thoat (tuong tu voi cac license hien ra)</kbd>
+            <img src ="./assets/img/giainen.png" alt="" style="width: 100%;">
+            <kbd># Noi dung petailux_tool</kbd>
+            <img src="./assets/img/petalinux_tools.png" alt="" style="width: 100%;">
+            <kbd># Chay moi truong Petalinux Tools </kbd>
+            <kbd>source ./settings.sh</kbd>
         </kbd>
         <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
       </div>
       <p class="hint"><b>Note:</b> Trong suot qua trinh ve sau cua build project su dung Petalinux Tools deu 
-        phai duoc chay trong terminal chua moi truong Petalinux Tools da duoc kich hoat bang lenh <code>source ./settings.sh</code>.
+        phai duoc chay trong terminal chua moi truong Petalinux Tools da duoc kich hoat bang lenh <b>source ./settings.sh</b>.
       </p>
     </section>
 
@@ -151,18 +82,18 @@
         Dung lenh <b>cd</b> de quay tro lai folder AMD_KD240 neu ban dang o trong folder petalinux_tools.
         Tao folder AMD_KD240 va dua file <b>petalinux-v2023.2-10121855-installer.run trong Buoc 2</b> vao folder AMD_KD240.
       </p>
-        <div class="code">
+      <div class="code">
         <kbd id="cmd1">
-            <kbd># cd ra khoi petalinux_tools</kbd><br>
-            <kbd>cd ..</kbd>
-            <br><br>
-            <kbd># Tao folder projects trong folder me AMD_KD240</kbd><br>
-            <kbd># Trong day se chua cac folder du an</kbd><br>
-            <kbd>mkdir ~/projects</kbd><br>
+            <kbd># cd ra khoi petalinux_tools</kbd>
+            <kbd>cd ..</kbd></br>
+            <kbd># Tao folder projects trong folder me AMD_KD240</kbd>
+            <kbd># Trong day se chua cac folder du an</kbd>
+            <kbd>mkdir projects</kbd>
         </kbd>
         <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
       </div>
-      <p class="hint">Lua chon ban Peatalinux Tools cung can danh gia theo ban Vivado, cung nhu he dieu hanh Ubuntu.</p>
+      <p class="hint">
+        <b>Note:</b> Lua chon ban Peatalinux Tools cung can danh gia theo ban Vivado, cung nhu he dieu hanh Ubuntu.</p>
     </section>
 
     <!-- Step 5: -->
@@ -172,9 +103,12 @@
         <p class="explain">
             Mo Vivado, sau khi chay xong bitstream, chon File -> Export -> Export Hardware
             Gia su file duoc tao co ten la <b>design_1_wrapper.xsa</b>
-            <img src="./img/xsa.png" alt="" style="width: 100%;">
+            <img src="./assets/img/xsa.png" alt="" style="width: 100%;">
         </p>
-        <p class="explain">Tim file .xsa do trong folder du an Vivado va copy vao trong folder /AMD_KD240/projects/</kbd><br></p>
+        <p class="explain">Tim file .xsa do trong folder du an Vivado va copy vao trong folder /AMD_KD240/projects</p>
+        <p class="hint">
+            <b>Note:</b> Can xac dinh dung SD Card cua Kria KD240 qua Schematic de viec bootign du lieu thanh cong (quan trong).
+        </p>
     </section>
 
     <!-- Step 6: -->
@@ -188,29 +122,27 @@
         </p>
         <div class="code">
             <kbd id="cmd1">
-                <kbd># Chuyen den folder chua project</kbd><br>
-                <kbd>cd ~/AMD_KD240/projects</kbd>
-                <br><br>
-                <kbd># Tao du an Petalinux voi chip zynqMP</kbd><br>
-                <kbd>petalinux-create -t project -n kd240_xsa --template zynqMP</kbd>z
-                <br><br>
-                <kbd># Vao trong du an kd240_xsa </kbd>
+                <kbd># Chuyen den folder chua project</kbd>
+                <kbd>cd /home/usrthanh/data/AMD_KD240/projects</kbd></br>
+                <kbd># Tao du an Petalinux voi chip zynqMP</kbd>
+                <kbd>petalinux-create -t project -n kd240_xsa --template zynqMP</kbd>
+                
+                <kbd># Vao trong du an kd240_xsa</kbd>
                 <kbd>cd kd240_xsa</kbd>
-                <br><br>
-                <kbd># Tao du an va chay config voi file .xsa</kbd><br>
-                <kbd>petalinux-config --get-hw-description=/AMD_KD240/projects/design_1_wrapper.xsa</kbd><br>
+                
+                <kbd># Tao du an va chay config voi file .xsa</kbd>
+                <kbd>petalinux-config --get-hw-description=/home/usrthanh/data/AMD_KD240/projects</kbd>
             </kbd>
             <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
         </div>
         <p class="explain">
             Neu chay thanh cong lenh tren se mo giao dien <b>petalinux-config</b>.
-            <br></br>
-            <img src="./img/petalinux_config.png" alt="" style="width: 100%;">
+            <img src="./assets/img/petalinux_config.png" alt="" style="width: 100%;">
             Chon <b>Save</b> xong <b> Exit</b> de luu cau hinh va thoat khoi giao dien.
             Chi tiet con fig se duoc neu trong <a href="docs.google.com/spreadsheets/d/1IfkEAOo7d5a6vqPfAfH1OYiWCjqXqU7uqHM4-d78gY4/edit?gid=0#gid=0" style="color: #22d3ee;">Sheet</a>.
         </p>
         <p class="hint">
-            <b>Note:</b> Kiem tra mangde dam bao ket noi internet on dinh trong qua trinh build.
+            <b>Note:</b> Kiem tra mang de dam bao ket noi internet on dinh trong qua trinh build.
         </p>
     </section>
 
@@ -228,33 +160,30 @@ heets/d/1IfkEAOo7d5a6vqPfAfH1OYiWCjqXqU7uqHM4-d78gY4/edit?gid=0#gid=0" style="co
             </p>
           <div class="code">
             <kbd id="cmd1">
-                <kbd># Cau hinh u-boot</kbd><br>
-                <kbd>petalinux-config -c u-boot</kbd>
-                <br><br>
-                <kbd># Chon Boot options bang nut Space</kbd><br>
-                <image src="./img/sd_card step1.png" alt="" style="width: 100%;">
-                <br><br>
-                <kbd># Chon Boot media bang nut Space</kbd><br>
-                <image src="./img/sd_card step2.png" alt="" style="width: 100%;">
-                <br></br>
-                <kbd># Chon Support for booting from SD/EMMC nham de boot he dieu hanh len Kria KD240 qua the SD card (su dung Space hoac y(yes), an n(no))</kbd><br>
-                <image src="./img/sd_card step3.png" alt="" style="width: 100%;">
+                <kbd># Cau hinh u-boot</kbd>
+                <kbd>petalinux-config -c u-boot</kbd><br>
+                <kbd># Chon Boot options bang nut Space</kbd>
+                <image src="./assets/img/sd_card step1.png" alt="" style="width: 100%;"><br>
+                <kbd># Chon Boot media bang nut Space</kbd>
+                <image src="./assets/img/sd_card step2.png" alt="" style="width: 100%;"><br>
+                <kbd># Chon Support for booting from SD/EMMC nham de boot he dieu hanh len Kria KD240 qua the SD card (su dung Space hoac y(yes), an n(no))</kbd>
+                <image src="./assets/img/sd_card step3.png" alt="" style="width: 100%;">
 
-                <kbd># Ket qua chay config u-boot se nhu sau:</kbd><br>
-                <kbd>[INFO] Sourcing buildtools</kbd></br>
-                <kbd>[INFO] Silentconfig project</kbd></br>
-                <kbd>[INFO] Silentconfig rootfs</kbd></br>
-                <kbd>[INFO] Generating workspace directory</kbd></br>
-                <kbd>[INFO] Configuring: u-boot</kbd></br>
-                <kbd>[INFO] bitbake virtual/bootloader -c menuconfig</kbd></br>
-                <kbd>NOTE: Started PRServer with DBfile: /AMD_KD240/projects/xsa_loopback/build/cache/prserv.sqlite3, Address: 127.0.0.1:36755, PID: 22177</kbd>
-                <kbd>....................................</kbd></br>
+                <kbd># Ket qua chay config u-boot se nhu sau:</kbd>
+                <kbd>[INFO] Sourcing buildtools</kbd>
+                <kbd>[INFO] Silentconfig project</kbd>
+                <kbd>[INFO] Silentconfig rootfs</kbd>
+                <kbd>[INFO] Generating workspace directory</kbd>
+                <kbd>[INFO] Configuring: u-boot</kbd>
+                <kbd>[INFO] bitbake virtual/bootloader -c menuconfig</kbd>
+                <kbd>NOTE: Started PRServer with DBfile: /AMD_KD240/projects/kd240_xsa/build/cache/prserv.sqlite3, Address: 127.0.0.1:36755, PID: 22177</kbd>
+                <kbd>....................................</kbd>
                 <kbd>[INFO] Successfully configured u-boot</kbd>
               </kbd>
             <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
         </div>
         <p class="hint">
-            <b>Note:</b> Kiem tra mangde dam bao ket noi internet on dinh trong qua trinh build.
+            <b>Note:</b> Kiem tra mang de dam bao ket noi internet on dinh trong qua trinh build.
         </p>
     </section>
 
@@ -272,23 +201,22 @@ heets/d/1IfkEAOo7d5a6vqPfAfH1OYiWCjqXqU7uqHM4-d78gY4/edit?gid=0#gid=0" style="co
             </p>
           <div class="code">
             <kbd id="cmd1">
-                <kbd># Cau hinh kernel</kbd><br>
-                <kbd>petalinux-config -c kernel</kbd>
-                <br><br>
-                <kbd># Ket qua chay config u-boot se nhu sau:</kbd><br>
-                <kbd>[INFO] Sourcing buildtools</kbd></br>
-                <kbd>[INFO] Silentconfig project</kbd></br>
-                <kbd>[INFO] Silentconfig rootfs</kbd></br>
-                <kbd>[INFO] Generating workspace directory</kbd></br>
-                <kbd>[INFO] Configuring: kernel</kbd></br>
-                <kbd>[INFO] bitbake virtual/kernel -c cleansstate</kbd></br>
-                <kbd>....................................</kbd></br>
+                <kbd># Cau hinh kernel</kbd>
+                <kbd>petalinux-config -c kernel</kbd><br>
+                <kbd># Ket qua chay config u-boot se nhu sau:</kbd>
+                <kbd>[INFO] Sourcing buildtools</kbd>
+                <kbd>[INFO] Silentconfig project</kbd>
+                <kbd>[INFO] Silentconfig rootfs</kbd>
+                <kbd>[INFO] Generating workspace directory</kbd>
+                <kbd>[INFO] Configuring: kernel</kbd>
+                <kbd>[INFO] bitbake virtual/kernel -c cleansstate</kbd>
+                <kbd>....................................</kbd>
                 <kbd>[INFO] Successfully configured kernel</kbd>
             </kbd>
             <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
         </div>
         <p class="hint">
-            <b>Note:</b> Kiem tra mangde dam bao ket noi internet on dinh trong qua trinh build.
+            <b>Note:</b> Kiem tra mang de dam bao ket noi internet on dinh trong qua trinh build.
         </p>
     </section>
 
@@ -306,19 +234,18 @@ heets/d/1IfkEAOo7d5a6vqPfAfH1OYiWCjqXqU7uqHM4-d78gY4/edit?gid=0#gid=0" style="co
         </p>
         <div class="code">
             <kbd id="cmd1">
-                <kbd># Cau hinh rootfs</kbd><br>
+                <kbd># Cau hinh rootfs</kbd>
                 <kbd>petalinux-config -c rootfs</kbd>
-                <br><br>
-                <kbd># Ket qua build se nhu sau:</kbd><br>
-                <kbd>[INFO] Sourcing buildtools</kbd></br>
-                <kbd>[INFO] Silentconfig project</kbd></br>
-                <kbd>[INFO] Generating plnxtool conf file</kbd></br>
-                <kbd>[INFO] Successfully configured rootfs</kbd></br>
+                <kbd># Ket qua build se nhu sau:</kbd>
+                <kbd>[INFO] Sourcing buildtools</kbd>
+                <kbd>[INFO] Silentconfig project</kbd>
+                <kbd>[INFO] Generating plnxtool conf file</kbd>
+                <kbd>[INFO] Successfully configured rootfs</kbd>
             </kbd>
             <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
         </div>
         <p class="hint">
-            <b>Note:</b> Kiem tra mangde dam bao ket noi internet on dinh trong qua trinh build.
+            <b>Note:</b> Kiem tra mang de dam bao ket noi internet on dinh trong qua trinh build.
         </p>
     </section>
 
@@ -335,14 +262,14 @@ heets/d/1IfkEAOo7d5a6vqPfAfH1OYiWCjqXqU7uqHM4-d78gY4/edit?gid=0#gid=0" style="co
         <div class="code">
             <kbd id="cmd1">
                 <kbd># Ket qua build se nhu sau:</kbd><br>
-                <kbd>[INFO] Sourcing buildtools</kbd></br>
-                <kbd>[INFO] Building project</kbd></br>
-                <kbd>[INFO] Silentconfig project</kbd></br>
-                <kbd>[INFO] Silentconfig rootfs</kbd></br>
+                <kbd>[INFO] Sourcing buildtools</kbd>
+                <kbd>[INFO] Building project</kbd>
+                <kbd>[INFO] Silentconfig project</kbd>
+                <kbd>[INFO] Silentconfig rootfs</kbd>
                 <kbd>[INFO] Generating workspace directory</kbd>
                 <kbd>INFO: bitbake petalinux-image-minimal</kbd> 
                 <kbd>NOTE: Started PRServer with DBfile: /AMD_KD240/projects/kd240_xsa/build/cache/prserv.sqlite3....</kbd>
-                <br>...................................<br>
+                <kbd>...................................</kbd>
                 <kbd>[INFO] Successfully built project</kbd>
             </kbd>
             <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
@@ -356,10 +283,10 @@ heets/d/1IfkEAOo7d5a6vqPfAfH1OYiWCjqXqU7uqHM4-d78gY4/edit?gid=0#gid=0" style="co
 
   <!-- Nap vao the SD card -->
   <div class="container">
-    <h1>Chuong II: Nap du lieu vao SD Card</h1>
+    <h1>Chuong II: Chuan bi nap du lieu vao SD Card</h1>
     <p class="lead">
-        <p> Day la phan ke tiep cua Chuong I sau khi da build toan bo du an. Tai day se huong dan nap du lieu vao the SD Card va chuan 
-        bi cho viec boot he dieu hanh len Kria KD240.
+        <p> Day la phan ke tiep cua Chuong I sau khi da build toan bo du an. Tai day se huong dan \
+          chuan bi cho nap du lieu vao the SD Card nham boot he dieu hanh len Kria KD240.
         </p>
     </p>
     <!-- Step 1: -->
@@ -374,9 +301,13 @@ heets/d/1IfkEAOo7d5a6vqPfAfH1OYiWCjqXqU7uqHM4-d78gY4/edit?gid=0#gid=0" style="co
             Hai hinh duoi day minh hoa the SD Card, ADAPTER va dau doc the SD Card chan USB.
         </p>
         <div class="img-row">
-          <img src="./img/SD.png" alt="" style="width: 100%;">
-          <img src="./img/daudoc.png" alt="" style="width: 100%;">
+          <img src="./assets/img/SD.png" alt="" style="width: 100%;">
+          <img src="./assets/img/daudoc.png" alt="" style="width: 100%;">
         </div>
+        <p class="hint">
+            <b>Note:</b> Nen su dung 1 ternminal khac so voi terminal trong Chuong I nham 
+            lam ro rang cac Chuong.
+        </p>
     </section>
 
     <!-- Step 2: -->
@@ -388,11 +319,11 @@ heets/d/1IfkEAOo7d5a6vqPfAfH1OYiWCjqXqU7uqHM4-d78gY4/edit?gid=0#gid=0" style="co
         </p>
         <div class="code">
             <kbd id="cmd1">
-                <kbd># Kiem tra lsblk </kbd><br>
-                <kbd>lsblk</kbd></br>
-                <kbd># Ket qua hien ra cac phan vung tren may tinh</kbd><br>
-                <kbd># Trong do the nho SD Card 32GB nam o sda vi no ghi 29,7Gb</kbd><br>
-                <img src="./img/lsblk.png" alt="" style="width: 100%;">
+                <kbd># Kiem tra lsblk </kbd>
+                <kbd>lsblk</kbd><br>
+                <kbd># Ket qua hien ra cac phan vung tren may tinh</kbd>
+                <kbd># Trong do the nho SD Card 32GB nam o sda vi no ghi 29,7Gb</kbd>
+                <img src="./assets/img/lsblk.png" alt="" style="width: 100%;">
             </kbd>
             <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
         </div>
@@ -401,111 +332,497 @@ heets/d/1IfkEAOo7d5a6vqPfAfH1OYiWCjqXqU7uqHM4-d78gY4/edit?gid=0#gid=0" style="co
     <!-- Step 3: -->
     <section class="step" aria-labelledby="s3">
         <span class="badge">Bước 3</span>
-        <div class="title"><div class="num">3</div><h3 id="s3">Chuan bi tao phan vung /BOOT va /rootfs</h2></div>
+        <div class="title"><div class="num">3</div><h2z id="s3">Umout the SD card</h2></div>
         <p class="explain">
-          Trong phan nay se chuan bi tao tren the SD Card 2 phan vung la <b>/BOOT</b> va <b>/rootfs</b>. Trong do:
-          <br></br>
-          <b>/BOOT</b> se chua cac file khoi dong he dieu hanh nhu BOOT.BIN, image.ub, boot.scr.
-          <br></br>
-          <b>/rootfs</b> se chứa hệ thống Linux (root filesystem: /bin, /etc, /lib,...).
+          Buoc nay co nhiem vu bo sung. Viec umount de nham dam bao khong co loi xay ra trong toan bo qua trinh xoa noi dung cung nhu format + label cac vung.
         </p>
         <div class="code">
             <kbd id="cmd1">
-                <kbd># Thao (umount) /dev/sda nham thao tac khong bi loi</kbd><br>
-                <kbd>sudo umount /dev/sda</kbd>
-                <br><br>
-                <kbd># Xoa toan bo signature cua filesystem tren the SD nahm dam bao no nhu 1 the SD moi</kbd><br>
+                <kbd># Thao (umount) /dev/sda nham thao tac khong bi loi</kbd>
+                <kbd>sudo umount /dev/sda</kbd><br>
+                <kbd># Xoa toan bo signature cua filesystem tren the SD nham dam bao no nhu 1 the SD moi</kbd>
                 <kbd>sudo wipefs -a /dev/sda</kbd>
-                <br><br>
-                <kbd># Mo tien ich fdisk de tao phan vung (partition) moi</kbd></br>
-                <kbd>sudo fdisk /dev/sda</kbd>
-                <img src="./img/partition.png" alt="" style="width: 100%;">
               </kbd>
             <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
         </div>
         <p class="hint">
-            <b>Note:</b> Neu ban muon build lai du an sau khi da thay doi cau hinh chi can chay lai lenh <b>petalinux-build</b>.
-            Ngoai ra nho Kiem tra mangde dam bao ket noi internet on dinh trong qua trinh build.
+            <b>Note:</b> Muon thao tac format + label the SD card thi nen umount truoc de tranh loi.
         </p>
     </section>
 
     <!-- Step 4: -->
     <section class="step" aria-labelledby="s4">
         <span class="badge">Bước 4</span>
-        <div class="title"><div class="num">4</div><h4 id="s4">Tao phan vung /BOOT</h2></div>
+        <div class="title"><div class="num">4</div><h2 id="s4">Tao phan vung 1 cho /BOOT</h2></div>
         <p class="explain">
-            Sau khi da o trong tien ich fdisk, tien hanh tao phan vung /BOOT tren the SD Card.
+          Tai tien ich <b>fdisk</b> tao phan vung 1 cho /BOOT tren the SD Card.
+        </p>
+        <div class="code">
+          <kbd id="cmd1">
+              <kbd># 1. Chon n (tao 1 phan vung moi) </kbd>
+              <kbd># 2. Chon p (phan vung chinh - Primary Partition) </kbd>
+              <kbd># 3. 1 (Lay vi tri phan vung thu 1 cho /BOOT)</kbd>
+              <kbd># 4. Enter (Dung sector bat dau mac dinh cai 1)</kbd>
+              <kbd># 5. +1G (Lay kich thuoc cho phan vung BOOT) </kbd>
+              <kbd># 6. Y (Yes - Xac nhan)</kbd>
+              <img src="./assets/img/boot.png" alt="" style="width: 100%;">
+              <kbd># 7. w (Luu thay doi) cho ca phan vung /BOOT hoac doi den khi tao xong phan vung /rootfs</kbd>
+            </kbd>
+          <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+      </div>
+      <div class="hint">
+        <b>Note:</b>  Sau khi tao xong 1 phan vung, co the an w luon de luu thay doi va thoat khoi fdisk. Hoac tao tiep phan vung /rootfs roi moi w de luu.
+      </div>
+    </section>
+
+    <!-- Step 5: -->
+    <section class="step" aria-labelledby="s5">
+        <span class="badge">Bước 5</span>
+        <div class="title"><div class="num">5</div><h2 id="s5">Tao phan vung 2 cho /rootfs</h2></div>
+        <p class="explain">
+          Sau khi tao xong phan vung 1 cho /BOOT.
+          <br></br>
+          Nguoi dung van dang o trong tien ich fdisk, tien hanh tao phan vung 2 cho /rootfs tren the SD Card.
+        </p>
+        <div class="code">
+          <kbd id="cmd1">
+              <kbd># 1. Chon n (tao 1 phan vung moi) </kbd>
+              <kbd># 2. Chon p (chon tao 1 phan vung chinh - Primary Partition) </kbd>
+              <kbd># 3. 2 (Lay vi tri phan vung thu 2 vi 1 cua /BOOT)</kbd>
+              <kbd># 4. Enter (Dung sector bat dau mac dinh vi no da nam sau phan vung 1 cua /BOOT)</kbd>
+              <kbd># 5. Enter (kích thước cho /rootfs) </kbd>
+              <kbd># 6. Y (Yes - Xac nhan)</kbd>
+              <img src="./assets/img/rootfs.png" alt="" style="width: 100%;">
+              <kbd># 7. w (Luu thay doi) cho ca phan vung /BOOT va /rootfs</kbd>
+            </kbd>
+          <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+      </div>
+      <div class="hint">
+        <b>Note:</b>  Sau khi tao xong 1 phan vung, co the an w luon de luu thay doi va thoat khoi fdisk. Hoac tao tiep phan vung /rootfs roi moi w de luu.
+      </div>
+    </section>
+
+
+    <!-- Step 6: -->
+    <section class="step" aria-labelledby="s6">
+        <span class="badge">Bước 6</span>
+        <div class="title"><div class="num">6</div><h2 id="s6">Dinh dang phan vung 1 va 2</h2></div>
+        <p class="explain">
+            Sau khi tao xong phan vung 1 va 2 tren the SD Card (Buoc 4 va 5). Ta co anh nhu sau:
+            <image src="./assets/img/sda1va2.png" alt="" style="width: 100%;">
+            Tiep theo, tien hanh dinh dang (format), dan nhan cho 2 phan vung vua tao. Trong do:
+            <br></br>
+            <b>Phan vung 1</b> se duoc dinh dang <b>FAT32</b> va dan nhan la <b>BOOT</b>.
+            <br></br>
+            <b>Phan vung 2</b> se duoc dinh dang <b>ext4</b> va dan nhan la <b>rootfs</b>.
         </p>
         <div class="code">
             <kbd id="cmd1">
-                <kbd># 1. Chon n (tao 1 phan vung moi) </kbd></br>
-                <kbd># 2. Chon p (chon tao 1 phan vung chinh - Primary Partition) </kbd></br>
-                <kbd># 3. 1 (Lay vi tri phan vung dau tien)</kbd></br>
-                <kbd># 4. Enter (Dung sector bat dau mac dinh)</kbd></br>
-                <kbd># 5. +1G (kích thước 1GB cho phân vùng BOOT) </kbd></br>
-                <kbd># 6. Y (Yes - Xac nhan)</kbd></br>
-                <img src="./img/boot.png" alt="" style="width: 100%;">
+                <kbd># Format va dan nhan BOOT </kbd>
+                <kbd>sudo mkfs.vfat -F32 /dev/sda1 -n BOOT</kbd></br>
+                <kbd># Format va dan nhan rootfs </kbd>
+                <kbd>sudo mkfs.ext4 /dev/sda2 -L rootfs</kbd>
               </kbd>
             <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
         </div>
         <div class="hint">
-            <b>Note:</b> Sau khi tao xong 1 phan vung, co the an w luon de luu thay doi va thoat khoi fdisk. Hoac tao tiep phan vung /rootfs roi moi w de luu.
+            <b>Note:</b>  Label (ten nhan) phan vung BOOT can viet hoa va rootfs viet thuong de he dieu hanh co the nhan dang dung.
+            Labels rat quan trong viec nap he dieu hanh len Kria KD240. Khong de sai ten.
         </div>
     </section>
 
-     <!-- Step 5: -->
-    <section class="step" aria-labelledby="s5">
-        <span class="badge">Bước 5</span>
-        <div class="title"><div class="num">5</div><h5 id="s5">Tao phan vung /rootfs</h2></div>
+    <!-- Step 7: -->
+    <section class="step" aria-labelledby="s7">
+        <span class="badge">Bước 7</span>
+        <div class="title"><div class="num">7</div><h2 id="s7">Kiem tra format va label</h2></div>
         <p class="explain">
-            Sau khi tao xong phan vung /BOOT.
-            <br></br>
-            Nguoi dung van dang o trong tien ich fdisk, tien hanh tao phan vung /rootfs tren the SD Card.
+          Sau khi format va label o Buoc 6, su dung lai <b>lsblk -f</b> de kiem tra lai format va label.
         </p>
         <div class="code">
             <kbd id="cmd1">
-                <kbd># 1. Chon n (tao 1 phan vung moi) </kbd></br>
-                <kbd># 2. Chon p (chon tao 1 phan vung chinh - Primary Partition) </kbd></br>
-                <kbd># 3. 2 (Lay vi tri phan vung thu 2 vi 1 cua /BOOT)</kbd></br>
-                <kbd># 4. Enter (Dung sector bat dau mac dinh sau cai 1)</kbd></br>
-                <kbd># 5. Enter (kích thước con lai cho /rootfs) </kbd></br>
-                <kbd># 6. Y (Yes - Xac nhan)</kbd></br>
-                <img src="./img/rootfs.png" alt="" style="width: 100%;">
-                <kbd># 7. w (Luu thay doi) cho ca phan vung /BOOT va /rootfs</kbd></br>
+              <kbd># Kiem tra format va label</kbd>
+              <kbd>lsblk -f</kbd></br>
+              <kbd># Ket qua</kbd>
+              <kbd># sda1: vfat - BOOT</kbd>
+              <kbd># sda2: ext4 - rootfs</kbd>
+              <img src="./assets/img/formatvalabel.png" alt="" style="width: 100%;">
+            <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+        </div>
+        <div class="hint">
+            <b>Note:</b> Kiem tra format va label de dam bao khong co loi xay ra trong qua trinh nap he dieu hanh len Kria KD240.
+        </div>
+    </section>
+
+    <!-- Step 8: -->
+    <section class="step" aria-labelledby="s8">
+        <span class="badge">Bước 8</span>
+        <div class="title"><div class="num">8</div><h2 id="s8">Tao mount point cho 2 phan vung </h2></div>
+        <p class="explain">
+            Sau khi kiem tra format va label o Buoc 9, tien hanh tao mount point cho 2 phan vung.
+            Nham chuan bi cho viec copy cac file he dieu hanh vao trong 2 phan vung do.
+            <br></br>
+            <b>sudo mkdir -p /media/usrthanh/BOOT</b>: Tao mount point cho phan vung label /BOOT.
+            <br></br>
+            <b>sudo mkdir -p /media/usrthanh/rootfs</b>: Tao mount point cho phan vung label /rootfs.
+          </p>
+        <div class="code">
+            <kbd id="cmd1">
+                <kbd># Tao mount point cho phan vung 1</kbd>
+                <kbd>sudo mkdir -p /media/usrthanh/BOOT</kbd></br>
+                <kbd># Tao mount point cho phan vung 2</kbd>
+                <kbd>sudo mkdir -p /media/usrthanh/rootfs</kbd>
+
+                <kbd># Ket qua tao mount point nhu sau:</kbd>
+                <img src="./assets/img/bootrootfs.png" alt="" style="width: 100%;">
               </kbd>
             <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
         </div>
         <div class="hint">
-            <b>Note:</b>  Sau khi tao xong 1 phan vung, co the an w luon de luu thay doi va thoat khoi fdisk. Hoac tao tiep phan vung /rootfs roi moi w de luu.
+            <b>Note:</b> Thay usrthanh bang ten nguoi dung (username) tren may tinh cua ban.
+        </div>
+    </section>
+
+    <!-- Step 9: -->
+    <section class="step" aria-labelledby="s9">
+        <span class="badge">Bước 9</span>
+        <div class="title"><div class="num">9</div><h2 id="s9">Mount point cho 2 phan vung </h2></div>
+        <p class="explain">
+            <b>sudo mount /dev/sda1 /media/usrthanh/BOOT</b>: Mount point cho phan vung label /BOOT.
+            <br></br>
+            <b>sudo mount /dev/sda1 /media/usrthanh/rootfs</b>: Mount point cho phan vung label /rootfs.
+          </p>
+        <div class="code">
+            <kbd id="cmd1">
+              <kbd># Mount point cho phan vung 1 (BOOT)</kbd>
+              <kbd>sudo mount /dev/sda1 /media/usrthanh/BOOT</kbd></br>
+              <kbd># Mount point cho phan vung 2 (rootfs)</kbd>
+              <kbd>sudo mount /dev/sda2 /media/usrthanh/rootfs</kbd></br>
+              <kbd># Ket qua mount point nhu sau:</kbd>
+              <img src="./assets/img/mount_boot_rootfs.png" alt="" style="width: 100%;">
+            </kbd>
+            <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+        </div>
+        <div class="hint">
+            <b>Note:</b> Thay usrthanh bang ten nguoi dung (username) tren may tinh cua ban.
         </div>
     </section>
   </div>
 
+  <!-- Nap vao the SD card -->
+  <div class="container">
+    <h1>Chuong III: Dua du lieu vao /BOOT va /rootfs</h1>
+    <p class="lead">
+        <p> Day la chuong ke tiep cua Chuong II sau khi da chuan bi xong the SD Card. Tai day se huong dan
+          dua du lieu vao 2 phan vung /BOOT va /rootfs tren the SD Card nham boot he dieu hanh len Kria KD240.
+          Mo ta ve /BOOT va /rootfs xem o Buoc 4 Chuong II.
+        </p>
+    </p>
+    <!-- Step 1: -->
+    <section class="step" aria-labelledby="s1">
+        <span class="badge">Bước 1</span>
+        <div class="title"><div class="num">1</div><h2 id="s1">Bo sung BOOT.BIN</h2></div>
+        <p class="explain">
+          Trong Chuong I, sau khi build xong du an Petalinux, cac file can thiet de nap he dieu hanh se nam trong folder <b>/images/linux</b> cua du an <b>kd240_xsa</b>.
+        </p>
+        <div class="code">
+            <kbd id="cmd1">
+                <kbd># Tao BOOT.BIN</kbd>
+                <kbd>petalinux-package --boot --fsbl /{home}/images/linux/zynqmp_fsbl.elf --u-boot images/linux/u-boot.elf --fpga images/linux/system.bit</kbd><br>
+                <kbd># Ket qua nhu sau:</kbd>
+                <kbd>anh BOOT.BIN</kbd>
+            </kbd>
+            <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+        </div>
+    </section>
+
+    <!-- Step 2: -->
+    <section class="step" aria-labelledby="s2">
+      <span class="badge">Bước 2</span>
+      <div class="title"><div class="num">2</div><h2 id="s2"> Copy noi dung vao /BOOT</h2></div>
+      <p class="explain">
+        Trong <b>BOOT</b> copy 3 file BOOT.BIN, image.ub va boot.scr
+        <br></br>
+        Nhung sau khi build (Buoc 10 Chuong I), cac file nhu boot.scr, image.ub deu nam cung 1 folder <b>/images/linux</b> trong du an <b>kd240_xsa</b>.
+        <br></br>
+        Trong khi do BOOT.BIN khong duoc tu tao ra ma no can qua lenh <b>petalinux-package</b> ben duoi roi moi copy 3 file nay vao phan vung /BOOT tren the SD Card.
+      </p>
+      <div class="code">
+          <kbd id="cmd1">
+              <kbd># Tao file BOOT.BIN vao /BOOT</kbd>
+              <kbd>petalinux-package --boot --fsbl /{home}/images/linux/zynqmp_fsbl.elf --u-boot images/linux/u-boot.elf --fpga images/linux/system.bit</kbd></br>
+              <kbd># Copy file BOOT.BIN vao /BOOT</kbd>
+              <kbd>sudo cp ~/{home}/AMD_KD240/projects/kd240_xsa/images/linux/BOOT.BIN /media/usrthanh/BOOT/</kbd></br>
+              <kbd># Copy file image.ub vao /BOOT</kbd>
+              <kbd>sudo cp ~/{home}/AMD_KD240/projects/kd240_xsa/images/linux/image.ub /media/usrthanh/BOOT/</kbd></br>
+              <kbd># Copy file boot.scr vao /BOOT</kbd>
+              <kbd>sudo cp ~/{home}/AMD_KD240/projects/kd240_xsa/images/linux/boot.scr /media/usrthanh/BOOT/</kbd>
+            </kbd>
+          <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+      </div>
+      <div class="hint">
+          <b>Note:</b> {home} thay bang ten duong dan den thu muc AMD_KD240 tren may tinh cua ban.
+      </div>
+    </section>
+
+    <!-- Step 3: -->
+    <section class="step" aria-labelledby="s3">
+      <span class="badge">Bước 3</span>
+      <div class="title"><div class="num">3</div><h2 id="s3"> Copy noi dung vao /rootfs</h2></div>
+      <p class="explain">
+        Trong <b>rootfs</b> giai nen toan bo noi dung file rootfs.tar.gz (nam trong /images/linux) vao phan vung /rootfs tren the SD Card.
+      </p>
+      <div class="code">
+          <kbd id="cmd1">
+              <kbd># Giai nen rootfs.tar.gz de lay ra duoc cac file he thong</kbd>
+              <kbd>sudo tar -xvf ~/Downloads/AMD_KD240/projects/kd240_xsa/images/linux/rootfs.tar.gz -C /media/usrthanh/rootfs1/</kbd>
+            </kbd>
+          <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+      </div>
+      <div class="hint">
+          <b>Note:</b> {home} thay bang ten duong dan den thu muc AMD_KD240 tren may tinh cua ban.
+      </div>
+    </section>
+
+    <!-- Step 4: -->
+    <section class="step" aria-labelledby="s4">
+      <span class="badge">Bước 4</span>
+      <div class="title"><div class="num">4</div><h2 id="s4">Umount 2 phan vung /BOOT va /rootfs</h2></div>
+      <p class="explain">
+        Trong buoc nay se umount 2 phan vung /BOOT va /rootfs tren the SD Card de chuan bi cho viec boot he dieu hanh len Kria KD240.
+        <br></br>
+        Sau khi umount xong co the thao the SD Card ra khoi may tinh
+      </p>
+      <div class="code">
+          <kbd id="cmd1">
+              <kbd># Unmout /BOOT</kbd>
+              <kbd>sudo umount /media/usrthanh/BOOT</kbd></br>
+              <kbd># Unmout /rootfs</kbd>
+              <kbd>sudo umount /media/usrthanh/rootfs</kbd>
+            </kbd>
+          <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+      </div>
+      <div class="hint">
+          <b>Note:</b> Thay usrthanh bang ten nguoi dung (username) tren may tinh cua ban.
+      </div>
+    </section>
+  </div>
+
+
+  <!-- Booting Kria KD240 -->
+  <div class="container">
+    <h1>Chuong IV: Booting Kria KD240</h1>
+    <p class="lead">
+        <p> Da la Chuong cuoi cung trong loat chuong huong dan nap he dieu hanh len Kria KD240. Tai day se huong dan
+          boot he dieu hanh tu the SD Card vua duoc nap du lieu o Chuong II va III len Kria KD240.
+        </p>
+    </p>
+    <!-- Step 1: -->
+    <section class="step" aria-labelledby="s1">
+        <span class="badge">Bước 1</span>
+        <div class="title"><div class="num">1</div><h2 id="s1">Cai dat Cutecom </h2></div>
+        <p class="explain">
+          Su dung cutecom de ket noi voi Kria KD240 qua cong UART.
+          <br></br>
+          <img src="./assets/img/cutecomlogo.png" alt="" style="width: 20%; display:block;margin:auto;"></br>
+        </p>
+        <div class="code">
+            <kbd id="cmd1">
+                <kbd># Tai ve danh sach phien ban va thong tin moi nhat cua cac goi </kbd>
+                <kbd># Cap nhat co so du lieu goi o may ban</kbd>
+                <kbd>sudo apt update</kbd><br/>
+                <kbd># Cai dat cutecom </kbd>
+                <kbd>sudo apt install cutecom</kbd>
+            </kbd>
+            <button class="copy" data-target="cmd1" aria-label="Sao chép lệnh mkdir">Copy</button>
+        </div>
+    </section>
+
+    <!-- Step 2: -->
+    <section class="step" aria-labelledby="s2">
+        <span class="badge">Bước 2</span>
+        <div class="title"><div class="num">2</div><h2 id="s2">Chinh setting cho Cutecom</h2></div>
+        <p class="explain">
+          Trong buoc nay se chinh setting cho Cutecom de ket noi voi Kria KD240 qua cong UART.
+          <br></br>
+          Vi du minh hoa ve setting cho Cutecom nhu hinh ben duoi:
+          <img src="./assets/img/chinhconfigcutecom.png" alt="" style="width: 100%; display:block;margin:auto;"></br>
+          Sau khi chinh xong setting, an nut <b>Open</b> de mo ket noi voi Kria KD240.
+        </p>
+    </section>
+
+    <!-- Step 3: -->
+    <section class="step" aria-labelledby="s3">
+        <span class="badge">Bước 3</span>
+        <div class="title"><div class="num">3</div><h2 id="s3">Booting Linux su dung Petalinux</h2></div>
+        <p class="explain">
+          Sau Chuong II, khi da co the SD 2 phan vung /BOOT va /rootfs da duoc nap du lieu he dieu hanh.
+          <br></br>
+          Tien hanh dua the SD Card vao Kria KD240 de boot he dieu hanh the cac buoc sau: 
+          <br></br>
+          1. Tat nguon Kria KD240.
+          <br></br>
+          2. Cam the SD Card vao khe SD tren Kria KD240.
+          <br></br>
+          3. Ket noi Kria KD240 voi may tinh qua cong micro USB - USB (Cong UART).
+          <div class="img-row" style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+            <img src="./assets/img/KriaKD240" alt="" style="width: 100%; max-height: 300px; object-fit: contain;">
+            <img src="./assets/img/realKD240.jpg" alt="" style="width: auto; max-height: 350px; object-fit: contain;">
+          </div></br>
+
+          4. Cau hinh Cutecom tren may tinh nhu o buoc 2 Chuong IV roi an Open de bat dau doi.
+          <img src="./assets/img/cutecomdoi.png" alt="" style="width: 100%; display:block;margin:auto;"></br>
+          5. Cam day nguon cho Kria KD240.
+          <br></br>
+          6. Mat tam 30 giay de he dieu hanh Linux boot tu dau den cuoi nhu 2 hinh duoi: </br>
+          <b>Bat dau tu 1 so thong diep boot:</b>
+          <img src="./assets/img/cutecom1.png" alt="" style="width: 100%; display:block;margin:auto;"></br>
+          <b>Ket thuc voi thong diep dang nhap:</b>
+          <img src="./assets/img/cutecom2.png" alt="" style="width: 100%; display:block;margin:auto;"></br>
+          7. Dang nhap he dieu hanh Linux tren Kria KD240 (su dung input de dien) : <br/>
+          Username: <b>petalinux</b> (Username mac dinh la petalinhx) <br/>
+          Password duoc tuy chinh
+          <img src="./assets/img/dangnhapthanhcong.png" alt="" style="width: 100%; display:block;margin:auto;"></br>
+          8. Vi du: <br/>
+          Username: <b>petalinux</b> <br/>
+          Password: 1<br/>
+          Retype password: 1
+          <br></br>
+          9. Ket thuc cac buoc tren ban da co the dang nhap thanh cong he dieu hanh Linux tren Kria KD240. Chuc cac ban thanh cong.
+        </p>
+    </section>
+  </div>
 <script>
-  // Copy to clipboard for both buttons
-  function copyText(id){
-    const el = document.getElementById(id);
-    const text = el ? el.textContent.trim() : "";
+  // Copy extractor with spacing rules (v4):
+  // Desired behavior:
+  // - A "pair" is: one or more comment lines (# ...) immediately followed by one or more code lines.
+  // - Inside a pair: NO blank line between the last comment and the first code line.
+  // - Between pairs (i.e., when code -> next comment): insert EXACTLY ONE blank line.
+  // - Consecutive comments stay adjacent; consecutive code lines stay adjacent.
+  // - Multiple '#' comments on one visual line are split into separate comment lines.
+  function extractTextWithRules(root){
+    const isComment = (ln) => ln.trim().startsWith('#');
+
+    // Collect raw lines preserving visible newlines in <kbd>, treating each <kbd> as block
+    let lines = [];
+    function walk(node){
+      if (!node) return;
+      if (node.nodeType === Node.TEXT_NODE){
+        const parts = (node.textContent || "").replace(/\r\n?/g,'\n').split('\n');
+        for(const p of parts) lines.push(p);
+        return;
+      }
+      if (node.nodeType !== Node.ELEMENT_NODE) return;
+      const name = node.nodeName.toUpperCase();
+      if (["IMG","BUTTON","SVG","FIGURE"].includes(name)) return;
+      if (name === "BR"){
+        lines.push(""); // explicit newline marker
+        return;
+      }
+      if (name === "KBD"){
+        const text = (node.innerText || "").replace(/\r\n?/g,'\n').split('\n');
+        for(const t of text) lines.push(t);
+        lines.push(""); // newline after each kbd block
+        return;
+      }
+      for(const child of node.childNodes) walk(child);
+    }
+    walk(root);
+
+    // Normalize whitespace per line
+    lines = lines.map(l => l.replace(/[ \t]+$/,'')).map(l => l.replace(/\u00A0/g, ' '));
+
+    // Split lines that contain multiple '#' comments on one line into separate comment lines
+    const splitLines = [];
+    for (let l of lines){
+      if (l.trim() === "") { splitLines.push(l); continue; }
+      if (/#/.test(l) && !l.trim().startsWith('#')){
+        // Insert newline before each secondary '#'
+        l = l.replace(/\s+(?=#)/g, '\n');
+      }
+      // Also handle "# a ... # b ..." => "# a ...\n# b ..."
+      l = l.replace(/(#.*?)(\s+)(?=#)/g, '$1\n');
+      const parts = l.split('\n');
+      for(const p of parts) splitLines.push(p);
+    }
+
+    // Remove leading/trailing empties
+    while (splitLines.length && splitLines[0].trim()==="") splitLines.shift();
+    while (splitLines.length && splitLines[splitLines.length-1].trim()==="") splitLines.pop();
+
+    const out = [];
+    for(let i=0; i<splitLines.length; i++){
+      const cur = splitLines[i].trim();
+      if (cur === ""){
+        // collapse consecutive empties
+        if (out.length && out[out.length-1] !== "") continue;
+        out.push("");
+        continue;
+      }
+      out.push(cur);
+
+      // Lookahead to next non-empty
+      let j = i+1;
+      while (j < splitLines.length && splitLines[j].trim() === "") j++;
+      if (j >= splitLines.length) break;
+      const next = splitLines[j].trim();
+      const curIsComment = isComment(cur);
+      const nextIsComment = isComment(next);
+
+      // RULES:
+      // Comment -> Code: NO blank line (pair stays tight) => do nothing
+      // Code -> Comment: EXACTLY ONE blank line (separate pairs)
+      if (!curIsComment && nextIsComment){
+        if (out[out.length-1] !== "") out.push("");
+      }
+      // Comment -> Comment: none
+      // Code -> Code: none
+    }
+
+    // Final collapse of extra blanks
+    const final = [];
+    for (const l of out){
+      if (l === "" && final.length && final[final.length-1] === "") continue;
+      final.push(l);
+    }
+
+    return final.join('\n').trim();
+  }
+
+  function copyElementText(el){
+    if (!el) return;
+    const text = extractTextWithRules(el);
     if (!text) return;
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(()=> flash(id));
+      navigator.clipboard.writeText(text).then(()=> flash(el));
     } else {
-      // Fallback
       const ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-      flash(id);
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      flash(el);
     }
   }
-  function flash(id){
-    const btn = document.querySelector('button[data-target="'+id+'"]');
+
+  function flash(node){
+    const btn = node.closest('.code')?.querySelector('button.copy');
     if(!btn) return;
     const old = btn.textContent;
     btn.textContent = 'Copied!';
     setTimeout(()=>{ btn.textContent = old; }, 900);
   }
-  document.querySelectorAll('.copy').forEach(b=>{
-    b.addEventListener('click', ()=> copyText(b.dataset.target));
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.copy').forEach(b=>{
+      b.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const container = b.closest('.code');
+        let el = container ? container.querySelector('kbd') : null;
+        if (!el && b.dataset.target) el = document.getElementById(b.dataset.target);
+        if (el) copyElementText(el);
+      });
+    });
   });
 </script>
 </body>
